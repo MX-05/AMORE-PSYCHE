@@ -19,9 +19,9 @@ class button():
             if y > cl['su'] and y < cl['giu']:
                 return True
 
-class image():
+class sprite():
     def __str__(self):
-        return "a subclasses of pygame.image"
+        return "a subclasses of pygame.sprite"
     
     def hit_box(self, img, x, y, tolleranza =0):
         dx = x +img.get_width() - tolleranza
