@@ -2,8 +2,9 @@ import pygame
 
 class button():
 
-    def __init__(self, coords, image, tolleranza = 0):
-        self.image = image
+    def __init__(self, coords, image = "", tolleranza = 0):
+        if image != "": self.image = image
+        else: print("ERROR: use make_simple_button([width, height]) or use self.button(image= \"path\")")
         
         self.coords = coords
         self.x = coords[0]
@@ -12,6 +13,12 @@ class button():
     
         self.hit_box = image.hit_box(self.image, self.x, self.y, self.tolleranza)
         return
+    
+    def make_simple_button(self, screen, size ,colour = (241, 197, 49)):
+        self.colour = colour
+        self.image = pygame.draw.rect(screen, self.colour, pygame.Rect(self.x, self.x, size[0], size[1]))
+        
+        return self.image
     
     def on_click(self, x, y):
         cl = self.hit_box
