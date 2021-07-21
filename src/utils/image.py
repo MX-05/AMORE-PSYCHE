@@ -16,8 +16,13 @@ class button():
         self.colour = colour
         
         if image == "": 
-            self.image = pygame.draw.rect(screen, self.colour, pygame.Rect(self.x, self.y, size[0], size[1]))
-            self.hit_box = {"destra": size[0], "sinistra": self.x, "su": self.y, "giu": size[1]}
+            self.image = sprite((self.x, self.y), width = size[0], height= sixe[1])
+            self.hit_box = {
+                "destra": self.x + size[0], 
+                "sinistra": self.x, 
+                "su": self.y, 
+                "giu": size[1] + self.y
+            }
         else:
             self.image = image
             self.hit_box = sprite.hit_box(self.image, self.x, self.y, self.tolleranza)
@@ -36,7 +41,7 @@ class button():
                 return True
 
 class sprite():
-    def __init__(self, coords, path = ""):
+    def __init__(self, coords, width = 50, height = 50, path = ""):
         self.x = coords[0]
         self.y = coords[1]
         
@@ -44,8 +49,8 @@ class sprite():
             self.image = pygame.image.load(path)
         else:
             self.image = pygame.Rect(self.x, self.y, 50, 50)
-            self.width = 50
-            self.height = 50
+            self.width = width
+            self.height = height
         
         return
     
