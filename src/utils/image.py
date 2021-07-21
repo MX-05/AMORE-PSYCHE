@@ -26,6 +26,7 @@ class button():
     
     def upadte(self):
         
+        
         return
     
     def on_click(self, x, y):
@@ -67,15 +68,22 @@ class display():
         else:
             self.FPS = FPS
     
+        # SCREEN
+    
         self.screen= pygame.display.set_mode(size)
-        if type(background) == type(""):
+        
+        if type(background) == type(""):        # image as background
             self.background = sprite([0, 0], path=background)
-        if type(background) == type(('r', 'g', 'b')):
+            
+        if type(background) == type(('r', 'g', 'b')):   # color as background
             self.background = background
             self.screen.fill((background))
         return
         
     def update(self):
+        if type(self.background) == type(sprite()):
+            self.screen.blit(self.background.image, (0, 0))
+            
         pygame.display.update()
         pygame.time.Clock().tick(self.FPS)
         
