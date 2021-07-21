@@ -2,6 +2,8 @@ import pygame
 
 from src.utils.image import *
 """
+TODO: scrivere tutte le classi
+
 classes: button(), image(), display().
 button():
     - image = pygame.image
@@ -13,6 +15,8 @@ button():
         "su": int,
         "giu": int
     }
+    
+    + make(size = [int width, int height], colour = (int r, int g, int b), image = "path")
 """
 
 pygame.init()

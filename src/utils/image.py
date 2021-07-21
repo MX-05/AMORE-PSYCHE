@@ -11,11 +11,11 @@ class button():
     
         return
     
-    def make(self, screen, size ,colour = (241, 197, 49), image = ""):
-        
+    def make(self, size ,colour = (241, 197, 49), image = ""):
+        # TODO: sggiungere il parametro button text
         self.colour = colour
         
-        if image != "": 
+        if image == "": 
             self.image = sprite((self.x, self.y), width = size[0], height= sixe[1])
             self.hit_box = self.image.hit_box()
         else:
