@@ -24,6 +24,10 @@ class button():
         
         return self.image
     
+    def upadte(self):
+        
+        return
+    
     def on_click(self, x, y):
         cl = self.hit_box
         if x <  cl["destra"] and x > cl["sinistra"]:
@@ -67,7 +71,8 @@ class display():
         if type(background) == type(""):
             self.background = sprite([0, 0], path=background)
         if type(background) == type(('r', 'g', 'b')):
-            self.background = sprite([0, 0], path = background)
+            self.background = background
+            self.screen.fill((background))
         return
         
     def update(self):
