@@ -15,18 +15,22 @@ class button():
         
         self.colour = colour
         
-        if image == "": 
+        if image != "": 
             self.image = sprite((self.x, self.y), width = size[0], height= sixe[1])
             self.hit_box = self.image.hit_box()
         else:
-            self.image = image
-            self.hit_box = self.image.hit_box(self.image, self.x, self.y, self.tolleranza)
+            self.image = sprite(self.coords, path= image)
+            self.hit_box = self.image.hit_box(self.tolleranza)
         
         return self.image
     
-    def upadte(self):
-        
-        
+    def upadte(self, screen):
+        try:
+            pygame.draw.rect(screen, self.colour, self.image)
+        except:
+            screen.blit(self.image, self.coords)
+        screen.update()
+                
         return
     
     def on_click(self, x, y):
