@@ -2,21 +2,25 @@ import pygame
 
 class button():
 
-    def __init__(self, coords, image = "", tolleranza = 0):
-        if image != "": self.image = image
-        else: print("ERROR: use make_simple_button([width, height]) or use self.button(image= \"path\")")
+    def __init__(self, coords, tolleranza = 0):
         
         self.coords = coords
         self.x = coords[0]
         self.y = coords[1]
         self.tolleranza = tolleranza
     
-        self.hit_box = image.hit_box(self.image, self.x, self.y, self.tolleranza)
         return
     
-    def make_simple_button(self, screen, size ,colour = (241, 197, 49)):
+    def make(self, screen, size ,colour = (241, 197, 49), image = ""):
+        
         self.colour = colour
-        self.image = pygame.draw.rect(screen, self.colour, pygame.Rect(self.x, self.x, size[0], size[1]))
+        
+        if image == "": 
+            self.image = pygame.draw.rect(screen, self.colour, pygame.Rect(self.x, self.y, size[0], size[1]))
+            self.hit_box = {"destra": size[0], "sinistra": self.x, "su": self.y, "giu": size[1]}
+        else:
+            self.image = image
+            self.hit_box = sprite.hit_box(self.image, self.x, self.y, self.tolleranza)
         
         return self.image
     
