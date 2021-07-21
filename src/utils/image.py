@@ -17,15 +17,10 @@ class button():
         
         if image == "": 
             self.image = sprite((self.x, self.y), width = size[0], height= sixe[1])
-            self.hit_box = {
-                "destra": self.x + size[0], 
-                "sinistra": self.x, 
-                "su": self.y, 
-                "giu": size[1] + self.y
-            }
+            self.hit_box = self.image.hit_box()
         else:
             self.image = image
-            self.hit_box = sprite.hit_box(self.image, self.x, self.y, self.tolleranza)
+            self.hit_box = self.image.hit_box(self.image, self.x, self.y, self.tolleranza)
         
         return self.image
     
@@ -57,12 +52,21 @@ class sprite():
     def __str__(self):
         return "a subclasses of pygame.sprite"
     
-    def hit_box(self, img, x, y, tolleranza =0):
-        dx = x +img.get_width() - tolleranza
-        sx = x + tolleranza
+    def hit_box(self, tolleranza =0):
+        
+        
+        if type(self.image) == type(pygame.Rect()):
+            return {
+                "destra": self.x + self.width, 
+                "sinistra": self.x, 
+                "su": self.y, 
+                "giu": self.y + self.height
+            }
+        dx = self.x +self.image.get_width() - tolleranza
+        sx = self.x + tolleranza
 
-        su = y + tolleranza + tolleranza
-        giu = y + img.get_height() -tolleranza
+        su = self.y + tolleranza + tolleranza
+        giu = self.y + self.image.get_height() -tolleranza
 
         return {"destra": dx, "sinistra": sx, "su": su, "giu": giu}
 
