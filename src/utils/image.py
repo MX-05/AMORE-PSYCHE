@@ -2,22 +2,40 @@ import pygame
 
 class button():
 
-    def __init__(self, coords, tolleranza = 0):
+    def __init__(
+        self, 
+        coords, 
+        font = "Arial", 
+        font_size = 25, 
+        font_color = (225, 225, 225),
+        text_distance = 5,
+        tolleranza = 0
+    ):
         
         self.coords = coords
         self.x = coords[0]
         self.y = coords[1]
         self.tolleranza = tolleranza
+        
+        self.text_setting = {
+            "font": pygame.font.SysFont(font, True, font_size),
+            "font color": font_color,
+            "distance": text_distance,
+            "content": "",
+            "coords": []
+        }
+        for i in coords:
+            self.text_setting["coords"].append(i + text_distance)
     
         return
     
-    def make(self, size ,colour = (241, 197, 49), image = ""):
-        # TODO: sggiungere il parametro button text
+    def make(self, size, content= "button", colour = (241, 197, 49), image = ""):
         self.colour = colour
         
-        if image == "": 
+        if image == "": # RECTANGLE
             self.image = sprite((self.x, self.y), width = size[0], height= sixe[1])
             self.hit_box = self.image.hit_box()
+            self.text_setting["content"] = content 
         else:
             self.image = sprite(self.coords, path= image)
             self.hit_box = self.image.hit_box(self.tolleranza)
@@ -27,6 +45,7 @@ class button():
     def upadte(self, screen):
         try:
             pygame.draw.rect(screen, self.colour, self.image)
+            screen.blit(self.text_setting["font"], self.text_setting["coords"])
         except:
             screen.blit(self.image, self.coords)
         screen.update()
