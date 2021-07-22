@@ -57,7 +57,16 @@ class button():
         if x <  cl["destra"] and x > cl["sinistra"]:
             if y > cl['su'] and y < cl['giu']:
                 return True
-
+    
+    def get_coords(self):
+        XcoordT = self.text_setting["coords"][0]
+        YcoordT = self.text_setting["coords"][1]
+        
+        if len(str(self.x)) <=6 or len(str(self.y))<=6:
+            print( "\tASSE | button | text\n")
+            print(f"\t  X  | {self.x}{(6-len(str(self.x)))*' '}| {XcoordT}\n")
+            print(f"\t  Y  | {self.y}{(6-len(str(self.y)))*' '}| {YcoordT}\n")
+y
 class sprite():
     def __init__(self, coords, width = 50, height = 50, path = ""):
         self.x = coords[0]
