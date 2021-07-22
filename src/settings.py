@@ -50,6 +50,8 @@ class menu():
                 # FIXME: fare chiudere il processo quando clicco la x della finestra 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
+                    # FIXME: fixare la hit_box dei pulsanti 
+                    screen.debug(x, y)
                     
                     if self.play["button"].on_click(x, y):
                         self.play["playing"] = True

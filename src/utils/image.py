@@ -150,3 +150,7 @@ class display():
         pygame.time.Clock().tick(self.FPS)
         
         return
+    
+    def debug(self, x, y):
+        print(f"\t X: {x} | Y: {y};")
+        return
