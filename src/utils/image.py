@@ -20,7 +20,7 @@ class button():
         self.tolleranza = tolleranza
         
         self.text_setting = {
-            "font": pygame.font.SysFont(font, True, font_size),
+            "font": pygame.font.SysFont(font, font_size),
             "font color": font_color,
             "distance": text_distance,
             "content": "",
@@ -40,7 +40,7 @@ class button():
             size.append(height)
         
         if image == "" or image.lower() =="rect": # RECTANGLE
-            self.image = sprite((self.x, self.y), width = size[0], height= sixe[1])
+            self.image = sprite((self.x, self.y), width = size[0], height= size[1])
             self.hit_box = self.image.hit_box()
             self.text_setting["content"] = content 
         else:
@@ -50,12 +50,18 @@ class button():
         return self.image
     
     def draw(self, screen):
-        try:
-            pygame.draw.rect(screen, self.colour, self.image)
-            screen.blit(self.text_setting["font"], self.text_setting["coords"])
-        except:
+        if type(self.image.image) == type(pygame.Rect(3, 3, 3, 3)):
+            pygame.draw.rect(screen, self.colour, self.image.image)
+            screen.blit(
+                self.text_setting["font"].render(
+                    self.text_setting["content"], 
+                    True, 
+                    self.text_setting["font color"]
+                ), 
+                self.text_setting["coords"]
+            )
+        else:
             screen.blit(self.image, self.coords)
-        screen.update()
                 
         return
     
@@ -105,7 +111,7 @@ class sprite():
     def hit_box(self, tolleranza =0):
         
         
-        if type(self.image) == type(pygame.Rect()):
+        if type(self.image) == type(pygame.Rect(self.x, self.y, 50, 50)):
             return {
                 "destra": self.x + self.width, 
                 "sinistra": self.x, 
@@ -137,7 +143,7 @@ class display():
         return
         
     def update(self):
-        if type(self.background) == type(sprite()):
+        if type(self.background) == type(sprite([0,0])):
             self.screen.blit(self.background.image, (0, 0))
             
         pygame.display.update()
