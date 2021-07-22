@@ -12,6 +12,8 @@ class button():
         tolleranza = 0
     ):
         
+        pygame.font.init()
+        
         self.coords = coords
         self.x = coords[0]
         self.y = coords[1]
