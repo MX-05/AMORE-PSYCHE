@@ -47,7 +47,7 @@ class button():
         
         return self.image
     
-    def upadte(self, screen):
+    def draw(self, screen):
         try:
             pygame.draw.rect(screen, self.colour, self.image)
             screen.blit(self.text_setting["font"], self.text_setting["coords"])
@@ -74,6 +74,7 @@ class button():
 
 class sprite():
     def __init__(self, coords, width = 50, height = 50, path = ""):
+        self.coords = coords
         self.x = coords[0]
         self.y = coords[1]
         
@@ -83,11 +84,21 @@ class sprite():
             self.image = pygame.Rect(self.x, self.y, 50, 50)
             self.width = width
             self.height = height
+            
+            self.color = (241, 197, 49)
         
         return
     
     def __str__(self):
         return "a subclasses of pygame.sprite"
+    
+    def draw(self, screen):
+        if type(self.image) != type(pygame.Rect):
+            screen.blit(self.image, self.coords)
+        else:
+            pygame.draw.rect(screen, self.color, self.image)
+            
+        return
     
     def hit_box(self, tolleranza =0):
         
@@ -108,11 +119,8 @@ class sprite():
         return {"destra": dx, "sinistra": sx, "su": su, "giu": giu}
 
 class display():
-    def __init__(self, background, size, FPS= -1):
-        if FPS <0: 
-            self.FPS = 50
-        else:
-            self.FPS = FPS
+    def __init__(self, background, size, FPS= 50):
+        self.FPS = FPS
     
         # SCREEN
     
