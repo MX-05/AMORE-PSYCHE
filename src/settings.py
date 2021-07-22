@@ -6,45 +6,36 @@ size = [720, 480]
 
 class menu():
     def __init__(self):
-        self.buttons = []
         
         self.play = {
             "playing": False,
             "button": util.button((20, 20))
         }
-        self.play["button"].make()
-        self.play["button"].text_setting["content"] = "Play"
-        
-        self.buttons.append(self.play["button"])
+        self.play["button"].make(content="Play")        
         
         self.audio = util.button((20, 80))
-        self.audio.make()
-        self.audio.text_setting["content"] = "Audio"
-        
-        self.buttons.append(self.audio)
+        self.audio.make(content="Audio")      
         
         self.credits = util.button((20, 140))
-        self.credits.make()
-        self.credits.text_setting["content"] = "Credits"
-        
-        self.buttons.append(self.credits)
+        self.credits.make(content="Credits")
         
         self.skin = util.button((
             20 + self.credits.image.width + 20,     # X
-            140                                      # Y
+            140                                     # Y
         ))
-        self.skin.make()
-        self.skin.text_setting["content"] = "Skin"
+        self.skin.make(content="Skin")      
         
-        self.buttons.append(self.skin)
         
         return
     
     def open(self):
         screen = util.display((225, 225, 225), size)
         while True:
-            for i in self.buttons:
-                i.draw(screen.screen)
+            for i in self.__dict__.items():
+                try:
+                    i[1]["button"].draw(screen.screen)
+                except:
+                    i[1].draw(screen.screen)
             
             for event in pygame.event.get():
                 # FIXME: fare chiudere il processo quando clicco la x della finestra 
