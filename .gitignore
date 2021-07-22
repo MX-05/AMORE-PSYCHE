@@ -1,3 +1,4 @@
 project/
 ignore/
 .tmp.drivedownload/
+*.pyc
