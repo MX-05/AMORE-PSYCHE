@@ -29,10 +29,15 @@ class button():
     
         return
     
-    def make(self, size, content= "button", colour = (241, 197, 49), image = ""):
+    def make(self, size = [], content= "button", colour = (241, 197, 49), image = ""):
         self.colour = colour
+        if size == []:
+            width = self.text_setting["font"].get_linesize() + self.text_setting["distance"]
+            height = self.text_setting["font"].get_height() + self.text_setting["distance"]
+            size.append(width)
+            size.append(height)
         
-        if image == "": # RECTANGLE
+        if image == "" or image.lower() =="rect": # RECTANGLE
             self.image = sprite((self.x, self.y), width = size[0], height= sixe[1])
             self.hit_box = self.image.hit_box()
             self.text_setting["content"] = content 
@@ -66,7 +71,7 @@ class button():
             print( "\tASSE | button | text\n")
             print(f"\t  X  | {self.x}{(6-len(str(self.x)))*' '}| {XcoordT}\n")
             print(f"\t  Y  | {self.y}{(6-len(str(self.y)))*' '}| {YcoordT}\n")
-y
+
 class sprite():
     def __init__(self, coords, width = 50, height = 50, path = ""):
         self.x = coords[0]
