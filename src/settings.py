@@ -8,9 +8,16 @@ def menu():
         }
         self.play.make()
         
-        self.audio = util.button((30, 20))
+        self.audio = util.button((20, 30))
         self.audio.make()
         
-        self.credits = util.button((40, 20))
+        self.credits = util.button((20, 40))
         self.credits.make()
+        
+        self.skin = util.button((
+            20 + self.credits.image.width + 20,     # X
+            40                                      # Y
+        ))
+        self.skin.make()
+        
         return
