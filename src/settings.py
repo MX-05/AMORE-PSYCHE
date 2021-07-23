@@ -9,20 +9,21 @@ class menu():
         
         self.play = {
             "playing": False,
-            "button": util.button((20, 20))
+            "button": util.button((20, 20), font_color=(40, 44, 52))
         }
         self.play["button"].make(content="Play")        
         
-        self.audio = util.button((20, 80))
+        self.audio = util.button((20, 80), font_color=(40, 44, 52))
         self.audio.make(content="Audio")      
         
-        self.credits = util.button((20, 140))
+        self.credits = util.button((20, 140), font_color=(40, 44, 52))
         self.credits.make(content="Credits")
         
         self.skin = util.button((
             20 + self.credits.image.width + 20,     # X
-            140                                     # Y
-        ))
+            140                                    # Y
+        ),  font_color=(40, 44, 52)
+        )
         self.skin.make(content="Skin")      
         
         
@@ -36,6 +37,8 @@ class menu():
                     i[1]["button"].draw(screen.screen)
                 except:
                     i[1].draw(screen.screen)
+            
+            screen.debug(mode=["hit-box", self.audio.image])
             
             for event in pygame.event.get():
                 
@@ -54,6 +57,7 @@ class menu():
                     
                     if self.audio.on_click(x, y):
                         # TODO: aggiungere le opzioni della classe mixer 
+                        print(self.audio.get_coords())
                         print("\t [v] pulsante audio cliccato")
                     
                     if self.credits.on_click(x, y):
