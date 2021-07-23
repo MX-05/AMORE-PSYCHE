@@ -76,9 +76,9 @@ class button():
         YcoordT = self.text_setting["coords"][1]
         
         if len(str(self.x)) <=6 or len(str(self.y))<=6:
-            print( "\tASSE | button | text\n")
-            print(f"\t  X  | {self.x}{(6-len(str(self.x)))*' '}| {XcoordT}\n")
-            print(f"\t  Y  | {self.y}{(6-len(str(self.y)))*' '}| {YcoordT}\n")
+            print( "\tASSE | button | text")
+            print(f"\t  X  | {self.x}{(6-len(str(self.x)))*' '}| {XcoordT}")
+            print(f"\t  Y  | {self.y}{(6-len(str(self.y)))*' '}| {YcoordT}")
 
 class sprite():
     def __init__(self, coords, width = 50, height = 50, path = ""):
@@ -88,8 +88,8 @@ class sprite():
         
         if path != "":
             self.image = pygame.image.load(path)
-        else:
-            self.image = pygame.Rect(self.x, self.y, 50, 50)
+        if path == "":
+            self.image = pygame.Rect(self.x, self.y, width, height)
             self.width = width
             self.height = height
             
@@ -151,6 +151,11 @@ class display():
         
         return
     
-    def debug(self, x, y):
-        print(f"\t X: {x} | Y: {y};")
+    def debug(self, x=0, y=0, mode = ["mouse"]):
+        if mode[0].lower() == "mouse":
+            print(f"\t X: {x} | Y: {y};")
+            
+        if mode[0].lower() == "hit-box":
+            hit_box = pygame.Rect(mode[1].x, mode[1].y, mode[1].width, mode[1].height)
+            pygame.draw.rect(self.screen, (231, 18, 15, 225), hit_box)
         return
