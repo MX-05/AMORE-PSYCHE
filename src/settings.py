@@ -38,7 +38,10 @@ class menu():
                     i[1].draw(screen.screen)
             
             for event in pygame.event.get():
-                # FIXME: fare chiudere il processo quando clicco la x della finestra 
+                
+                if event.type == pygame.QUIT:
+                    return
+                
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
                     # FIXME: fixare la hit_box dei pulsanti 
