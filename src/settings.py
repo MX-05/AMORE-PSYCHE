@@ -15,6 +15,8 @@ class menu():
         }
         
         self.audio = util.button((20, 80), " Audio ")
+        if 
+        self.status = util.button((20, 80), )
         
         self.credits = util.button((20, 140), " Credits ")
         
