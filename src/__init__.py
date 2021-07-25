@@ -1,6 +1,6 @@
 import pygame
 
-from src.utils.image import *
+from src.utils import *
 """
 TODO: scrivere tutte le classi
 
