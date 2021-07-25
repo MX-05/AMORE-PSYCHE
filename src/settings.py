@@ -62,5 +62,6 @@ class menu():
         
         return
     
-setting = menu()
-setting.open()
+if __name__ == "__main__":
+    setting = menu()
+    setting.open()
