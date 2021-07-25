@@ -1,4 +1,5 @@
-
+import pygame
+import __init__
 
 class button():
 
