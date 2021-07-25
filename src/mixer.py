@@ -6,3 +6,12 @@ class mixer():
         self.status = status
         
         return
+    
+    def get_status():
+        s = self.status
+        if s:
+            print ("AUDIO ON")
+        else:
+            print ("AUDIO OFF")
+        
+        return self.status
