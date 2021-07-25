@@ -15,3 +15,6 @@ class mixer():
             print ("AUDIO OFF")
         
         return self.status
+    
+    def audio(self):
+        return self.get_status()
