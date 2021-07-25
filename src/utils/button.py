@@ -1,5 +1,5 @@
 import pygame
-import __init__
+from utils.image import sprite
 
 class button():
 

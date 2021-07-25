@@ -1,4 +1,4 @@
 import pygame
-from image import sprite
-import button
-from surfice import display
+from utils.image import sprite
+from utils.button import button
+from utils.surfice import display

@@ -1,4 +1,5 @@
-from image import sprite
+import pygame
+from utils.image import sprite
 
 class display():
     def __init__(self, background, size, FPS= 50):
