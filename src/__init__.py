@@ -20,7 +20,7 @@ button():
 """
 
 pygame.init()
-display = pygame.display.set_mode([720, 480])
 size = [720, 480]
+display = display((40, 44, 52), size)
 
 pygame.mixer.init()
