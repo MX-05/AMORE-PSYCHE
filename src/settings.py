@@ -1,9 +1,9 @@
 import utils as util
+import __init__ as const
 
 import pygame
 
-# FIXME: sistemare lo scambio di variabili nell'__init__.py
-size = [720, 480]
+size = const.size
 
 class menu():
     def __init__(self):
