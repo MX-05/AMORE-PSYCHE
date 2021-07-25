@@ -25,7 +25,7 @@ class menu():
         
         return
     
-    def open(self):
+    def full_screen(self):
         while True:
             for i in self.__dict__.items():
                 try:
@@ -64,4 +64,4 @@ class menu():
     
 if __name__ == "__main__":
     setting = menu()
-    setting.open()
+    setting.full_screen()
