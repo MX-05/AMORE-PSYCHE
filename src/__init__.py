@@ -1,6 +1,7 @@
 import pygame
 
 from utils import *
+from src.mixer import mixer
 """
 TODO: scrivere tutte le classi
 
