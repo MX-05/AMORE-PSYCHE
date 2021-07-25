@@ -1,4 +1,5 @@
-import utils.image as util
+import utils as util
+
 import pygame
 
 # FIXME: sistemare lo scambio di variabili nell'__init__.py
