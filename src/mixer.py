@@ -7,7 +7,15 @@ class mixer():
         
         return
     
-    def get_status():
+    def change_status(self):
+        if self.status == True:
+            self.status = False
+        else:
+            self.status = True
+        
+        return self.status
+    
+    def get_status(self):
         s = self.status
         if s:
             print ("AUDIO ON")
