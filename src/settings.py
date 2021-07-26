@@ -9,10 +9,14 @@ screen = const.display
 class menu():
     def __init__(self):
         
+        # ----------- PLAY BTN --------
+        
         self.play = {
             "playing": False,
             "button": util.button((20, 20), "  Play  ")
         }
+        
+        # ----------- AUDIO BTN --------
         
         self.audio = {
             "status": const.mixer(True),
@@ -23,12 +27,18 @@ class menu():
                 80
             )
         
+        # ----------- AUDIO STATUS --------
+        
         if self.audio["status"]:
             self.status = util.button(self.audio["status coords"], " on ")
         else:
             self.status = util.button(self.audio["status coords"], " off ")
         
+        # ----------- CREDITS BTN --------
+        
         self.credits = util.button((20, 282), "  Credits  ")
+        
+        # ----------- SKIN BTN --------
         
         self.skin = util.button((455, 282),  "  Skin  ")
         
@@ -36,11 +46,16 @@ class menu():
     
     def main_menu(self):
         while True:
+            
+            # ---------- DRAW BTN ------------
+            
             for i in self.__dict__.items():
                 try:
                     i[1]["button"].draw(screen.screen)
                 except:
                     i[1].draw(screen.screen)
+            
+            # ---------- EVENTS --------------
             
             for event in pygame.event.get():
                 
@@ -50,10 +65,9 @@ class menu():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
                     
-                    screen.debug(x, y)
-                    
                     if self.play["button"].on_click(x, y):
                         self.play["playing"] = True
+                        # TODO: mettere la funzione play per avviare i dialoghi 
                         print("\t [v] PUlsanre Play cliccato")
                         return
                     
