@@ -22,19 +22,15 @@ class menu():
                 20 + self.audio["button"].image.width + 20,
                 80
             )
-        # FIXME: sistemare l'audio status
         
         if self.audio["status"]:
             self.status = util.button(self.audio["status coords"], " on ")
         else:
             self.status = util.button(self.audio["status coords"], " off ")
         
-        self.credits = util.button((20, 140), "  Credits  ")
+        self.credits = util.button((20, 282), "  Credits  ")
         
-        self.skin = util.button((
-            20 + self.credits.image.width + 20,     # X
-            140                                    # Y
-        ),  "  Skin  ")
+        self.skin = util.button((455, 282),  "  Skin  ")
         
         return
     
@@ -54,6 +50,8 @@ class menu():
                 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
+                    
+                    screen.debug(x, y)
                     
                     if self.play["button"].on_click(x, y):
                         self.play["playing"] = True
