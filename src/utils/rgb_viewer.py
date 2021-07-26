@@ -1,7 +1,6 @@
 import pygame
 
-def get_colot(color):
-    color = str(input("Insert color in rgb: "))
+def get_color(color):
     rgb = color.split(',')
     rgb[0] = rgb[0].replace('(', '')
     rgb[1] = rgb[1].strip()
@@ -17,10 +16,6 @@ def get_rgb(rgb):
     
     return red, green, blue
 
-pygame.init()
-screen = pygame.display.set_mode([100, 100])
-
-screen.fill((red, green, blue))
 def main():
     while True:
         for event in pygame.event.get():
@@ -30,4 +25,10 @@ def main():
         pygame.display.update()
         
 if __name__ == "__main__":
+
+    pygame.init()
+    screen = pygame.display.set_mode([100, 100])
+    rgb = get_color(str(input("Insert color in rgb: ")))
+    screen.fill((get_rgb(rgb)))
+    
     main()
