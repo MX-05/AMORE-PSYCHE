@@ -31,9 +31,10 @@ class button():
     
     def make(self, image = ""):
         
-        if image == "" or image.lower() =="rect": # RECTANGLE
+        if image == "" or image.lower() =="rect": # RECTANsGLE
             x, y, w, h = self.text_render.get_rect()
-            x, y = self.coords
+            x = self.x
+            y = self.y
             
             self.image = pygame.Rect(x, y, w, h)
             self.hit_box = {

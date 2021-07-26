@@ -42,6 +42,7 @@ class menu():
                 except:
                     i[1].draw(screen.screen)
             
+            const.credits().open(screen.screen, 20, 292)
             
             for event in pygame.event.get():
                 
