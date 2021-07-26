@@ -34,15 +34,13 @@ class menu():
         
         return
     
-    def full_screen(self):
+    def main_menu(self):
         while True:
             for i in self.__dict__.items():
                 try:
                     i[1]["button"].draw(screen.screen)
                 except:
                     i[1].draw(screen.screen)
-            
-            const.credits().open(screen.screen, 20, 292)
             
             for event in pygame.event.get():
                 
@@ -79,4 +77,4 @@ class menu():
     
 if __name__ == "__main__":
     setting = menu()
-    setting.full_screen()
+    setting.main_menu()
