@@ -11,19 +11,30 @@ class menu():
         
         self.play = {
             "playing": False,
-            "button": util.button((20, 20), " Play ")
+            "button": util.button((20, 20), "  Play  ")
         }
         
-        self.audio = util.button((20, 80), " Audio ")
-        if 
-        self.status = util.button((20, 80), )
+        self.audio = {
+            "status": const.mixer(True),
+            "button": util.button((20, 80), "  Audio  "),
+        }
+        self.audio["status coords"] = (
+                20 + self.audio["button"].image.width + 20,
+                80
+            )
+        # FIXME: sistemare l'audio status
         
-        self.credits = util.button((20, 140), " Credits ")
+        if self.audio["status"]:
+            self.status = util.button(self.audio["status coords"], " on ")
+        else:
+            self.status = util.button(self.audio["status coords"], " off ")
+        
+        self.credits = util.button((20, 140), "  Credits  ")
         
         self.skin = util.button((
             20 + self.credits.image.width + 20,     # X
             140                                    # Y
-        ),  " Skin ")
+        ),  "  Skin  ")
         
         return
     
@@ -49,9 +60,12 @@ class menu():
                         print("\t [v] PUlsanre Play cliccato")
                         return
                     
-                    if self.audio.on_click(x, y):
-                        # TODO: aggiungere le opzioni della classe mixer 
-                        print("\t [v] pulsante audio cliccato")
+                    if self.audio["button"].on_click(x, y):
+                        
+                        if self.audio["status"].change_status() == True:
+                            self.status = util.button(self.audio["status coords"], " on ")
+                        else:
+                            self.status = util.button(self.audio["status coords"], " off ")
                     
                     if self.credits.on_click(x, y):
                         # TODO: aggiungere le opzioni della classe credits 
