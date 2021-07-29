@@ -14,23 +14,24 @@ class Button(pygame.sprite.Sprite):
     
     # BUTTON WITH TEXT
         
-    def B_text(self, text, font, bg= pygame.Color("white"), color = pygame.Color("black")):
+    def B_text(self, text, font, bg= pygame.Color("white"), color = pygame.Color("black"), radius = 0):
         self.content = text
         self.font = pygame.font.SysFont(font[0], font[1])
         
-        self.change_text(self.content, bg= bg, txt_color=color)
+        self.change_text(self.content, bg= bg, txt_color=color, radius=radius)
         return self
  
-    def change_text(self, text, bg="white", txt_color = pygame.Color("black")):
+    def change_text(self, text, bg="white", txt_color = pygame.Color("black"), radius = 0):
         """Change the text whe you click"""
         self.content = text
         self.text = self.font.render(self.content, 1, txt_color)
         self.size = self.text.get_size()
         self.image = pygame.Surface(self.size)
-        self.image.fill(bg)
-        self.image.blit(self.text, (0, 0))
+        self.image.fill("white")
         self.rect = self.image.get_rect()
+        pygame.draw.rect(self.image, bg, self.rect, border_radius=radius)
         self.rect.topleft = self.pos
+        self.image.blit(self.text, (0, 0))
  
     # BUTTON REACTIONS
  
