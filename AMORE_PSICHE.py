@@ -24,28 +24,34 @@ font = pg.font.SysFont("Arial", 20)
 # ------------------------------------- MENU ------------------------------------- #
 
 # BUTTON SETUP
-play = Button("Play", (300, 210), 50, bg=(225, 0, 0))
+play = Button("Play", (0, 0), 50, bg=(225, 0, 0))
 audio = Button("Audio ON",(295, 280), 25, bg = "blue", txt_color=pg.Color("white"))
 
+play.rect.center = surface.get_rect().center
+
 menu = pg.sprite.Group()
-menu.add(audio)
-menu.add(play)
 
 # CREDITS SETUP
-text_credits = """DEVELOPER: Marco Mazzeo
-GRAPHICS: Mia Masetti
-SOUNDS: Luca Pasqualetti & Cosimo Losurdo
-DOPPIAGGIO: Tiago Pisanti Vieira
-MAPPA ESPOLORAZIONE: Milo Binetti
+text_credits = """
+    DEVELOPER: Marco Mazzeo 
+    GRAPHICS: Mia Masetti   
+    SOUNDS: Luca Pasqualetti & Cosimo Losurdo    
+    DOPPIAGGIO: Tiago Pisanti Vieira    
+    MAPPA ESPOLORAZIONE: Milo Binetti   
+
 """
 
-credits = sprite_font(surface, text_credits, (20, 330), 20, bg=(100, 100, 100))
+credits = sprite_font(surface, text_credits, (140, 310), 20, bg=(100, 100, 100))
 
 menu.add(credits)
+menu.add(audio)
+menu.add(play)
+move = False
 
 while True:
     
     mouse = pg.mouse
+    mx, my = mouse.get_pos()
     
     for event in pg.event.get():
         
@@ -66,7 +72,6 @@ while True:
             else:
                 audio.change_text("Audio ON", bg="blue", txt_color= pg.Color("white"))
     
-    # pg.draw.rect(surface, (40, 44, 52), (0, 330, surface.get_width(), surface.get_height()-330))
     
     menu.draw(surface)
     clock.tick(60)
