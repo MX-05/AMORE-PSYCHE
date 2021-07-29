@@ -26,7 +26,7 @@ font = pg.font.SysFont("Arial", 20)
 # BUTTON SETUP
 play = Button((0,0)).B_text(
     " Play ", ["Arial", 50], 
-    bg= (255, 0, 0), radius=20
+    bg= (124, 99, 156), color="White", radius=20
 )
 audio = Button((295, 395)).B_text(
     " Audio ON ", ["Arial", 25],
@@ -37,15 +37,17 @@ skin = {
         " SKIN ", ["Arial", 25], 
         bg = (255, 174, 0), color="white", radius=15
     ),
-    "asset": Button((865, 50), path = "./assets/pg_pattuglie/pg_tigre.jpeg")
+    "asset": Button((865, 100), path = "./assets/pg_pattuglie/pg_tigre.jpeg")
 }
-print (skin["asset"].image.get_size())
-skin["asset"].image = pg.transform.scale(skin["asset"].image, (300, 400))
-# skin["asset"].image.fill
 
+skin["asset"].image = pg.transform.scale(skin["asset"].image, (300, 400))
+asset_centery = skin["asset"].rect.centery
+
+# SET BUTTONS COORDS
 play.rect.center = [surface.get_rect().centerx, surface.get_rect().centery]
 audio.rect.centerx = surface.get_rect().centerx
-skin["button"].rect.center = (1000, 450)
+skin["button"].rect.centerx = 1000
+skin["button"].rect.top = 510
 
 menu = pg.sprite.Group()
 menu.add(audio)
@@ -63,12 +65,18 @@ text_credits = """
 
 """
 
-credits = sprite_font(surface, text_credits, (10, 0), 15, bg=(0, 0, 0, 3.0), txt_color="White")
+credits = sprite_font(
+    surface, 
+    text_credits, (10, 0), 15, 
+    bg=(62, 62, 62), 
+    txt_color="White"
+)
 
 credits.rect.bottom = surface.get_rect().bottom - 10
 
 menu.add(credits)
-move = False
+vy = 1
+move = True
 
 
 while True:
@@ -82,6 +90,8 @@ while True:
             pg.quit()
             sys.exit()
         
+        # DEBUG
+        # TODO: levarlo alla fine   
         if event.type == pg.MOUSEBUTTONDOWN:
             print(mouse.get_pos())
         
@@ -97,6 +107,24 @@ while True:
                 surface.fill(display["color"])
                 audio.change_text(" Audio ON ", bg=(255, 174, 0), txt_color= pg.Color("white"), radius=15)
                 audio.rect.centerx = surface.get_rect().centerx
+        
+    # SET ANIMATION VARIABLES    
+    Ypoint = skin["asset"].rect.centery
+    distance = Ypoint - asset_centery -25 
+    pg.time.delay(25)
+    
+    # GO DOWN
+    if Ypoint >= asset_centery -26 and move == True:
+        skin["asset"].rect.centery += vy
+        if Ypoint == asset_centery +25:
+            move = False
+    
+    # GO UP
+    if Ypoint <= asset_centery +25 and move == False:
+        skin["asset"].rect.centery -= vy
+        if Ypoint == asset_centery-25:
+            move = True
+    
     
     menu.draw(surface)
     clock.tick(60)
