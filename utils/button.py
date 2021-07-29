@@ -24,7 +24,7 @@ class Button(pygame.sprite.Sprite):
         self.image.blit(self.text, (0, 0))
         self.rect = pygame.Rect(self.x, self.y, self.size[0], self.size[1])
  
-    def show(self, screen):
+    def show(self):
         # screen.blit(self.image, (self.x, self.y))
         self.rect.center = [self.x, self.y]
  
