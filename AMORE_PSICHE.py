@@ -70,7 +70,8 @@ skin = {
         " SKIN ", ["Arial", 25], 
         bg = (255, 174, 0), color="white", radius=15
     ),
-    "asset": Button((865, 100), path = "./assets/pg_pattuglie/pg_tigre.jpeg")
+    "asset": Button((865, 100), path = "./assets/pg_pattuglie/pg_tigre.jpeg"),
+    "menu": Button((0, 0)) # TODO: set pos and size 
 }
 
 skin["asset"].image = pg.transform.scale(skin["asset"].image, (300, 400))
@@ -84,8 +85,15 @@ asset_centery = skin["asset"].rect.centery
 vy = 1
 move = True
 
+# SKIN MENU
+# TODO: draw rectangle
+# TODO: blit skins 
+# TODO: add select skins buttons
+# TODO: add exit button 
+
 menu.add(skin["asset"])
 menu.add(skin["button"])
+menu.add(skin["menu"])
 
 while True:
     
