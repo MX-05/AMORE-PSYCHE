@@ -32,7 +32,8 @@ class Button(pygame.sprite.Sprite):
         # GET SURFACE
         self.size = self.text.get_size()
         self.image = pygame.Surface(self.size)
-        self.image.fill(("white"))
+        self.image.fill("white")
+        # self.image.set_alpha()
         
         # GET RECTANGLE
         self.rect = self.image.get_rect()

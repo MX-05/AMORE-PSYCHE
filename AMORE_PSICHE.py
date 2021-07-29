@@ -10,13 +10,13 @@ clock = pg.time.Clock()
 
 # SCREEN SETUP
 display = {
-    'width': 720,
-    'height': 480,
+    'width': 1280,
+    'height': 720,
     'caption': "AMORE ~ PSICHE",
     "color": "white"
 }
 pg.display.set_caption(display['caption'])
-surface = pg.display.set_mode((display['width'], display['height']))
+surface = pg.display.set_mode((display['width'], display['height']), pg.SCALED + pg.RESIZABLE)
 surface.fill(display["color"])
 
 font = pg.font.SysFont("Arial", 20)
@@ -28,15 +28,30 @@ play = Button((0,0)).B_text(
     " Play ", ["Arial", 50], 
     bg= (255, 0, 0), radius=20
 )
-audio = Button((295, 280)).B_text(
+audio = Button((295, 395)).B_text(
     " Audio ON ", ["Arial", 25],
     bg = (255, 174, 0), color="white", radius = 15 
 )
+skin = {
+    "button": Button((0, 0)).B_text(
+        " SKIN ", ["Arial", 25], 
+        bg = (255, 174, 0), color="white", radius=15
+    ),
+    "asset": Button((865, 50), path = "./assets/pg_pattuglie/pg_tigre.jpeg")
+}
+print (skin["asset"].image.get_size())
+skin["asset"].image = pg.transform.scale(skin["asset"].image, (300, 400))
+# skin["asset"].image.fill
 
 play.rect.center = [surface.get_rect().centerx, surface.get_rect().centery]
 audio.rect.centerx = surface.get_rect().centerx
+skin["button"].rect.center = (1000, 450)
 
 menu = pg.sprite.Group()
+menu.add(audio)
+menu.add(play)
+menu.add(skin["asset"])
+menu.add(skin["button"])
 
 # CREDITS SETUP
 text_credits = """
@@ -48,13 +63,11 @@ text_credits = """
 
 """
 
-credits = sprite_font(surface, text_credits, (10, 0), 15, bg="Black", txt_color="White   ")
+credits = sprite_font(surface, text_credits, (10, 0), 15, bg=(0, 0, 0, 3.0), txt_color="White")
 
 credits.rect.bottom = surface.get_rect().bottom - 10
 
 menu.add(credits)
-menu.add(audio)
-menu.add(play)
 move = False
 
 
