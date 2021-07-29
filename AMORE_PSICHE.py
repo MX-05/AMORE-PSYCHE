@@ -5,7 +5,7 @@ import sys
 from ignore.button_2 import Button
 
 class sprite_font(pg.sprite.Sprite):
-    def __init__(self, screen, text, pos, size, bg = pg.Color("white")):
+    def __init__(self, screen, text, pos, size, bg = pg.Color("white"), txt_color = pg.Color("black")):
         super().__init__()
         
         self.max_size = screen.get_size()
@@ -14,41 +14,34 @@ class sprite_font(pg.sprite.Sprite):
         self.image = pg.Surface((self.width, self.height))
         self.image.fill(bg)
         
-        self.blit_text(screen, text, pos, size)        
-                
         self.rect = self.image.get_rect()
+                
+        self.rect.topleft = pos
+        
+        self.blit_text(screen, text, (0, 0), size, color = txt_color)        
         return
         
     def blit_text(self, surface, text, pos, size, color=pg.Color('black')):
         font = pg.font.SysFont("Arial", size)
                 
         words = self.words
-        space = self.space
                 
         max_width, max_height = self.max_size
         x, y = pos
                 
         for line in words:
-            for word in line:
-                word_surface = font.render(word, 0, color)
-                word_width, word_height = word_surface.get_size()
-                
-                if x + word_width >= max_width:
-                    x = pos[0]  # Reset the x.
-                    y += word_height  # Start on new row.
-                    
-                self.image.blit(word_surface, (x, y))
-                
-                x += word_width + space
+            text_render = font.render(line, 1, color)
+            word_width, word_height = text_render.get_size()
+                          
+            self.image.blit(text_render, (x, y))
                             
-            x = pos[0]  # Reset the x.
             y += word_height  # Start on new row.
         return
     
     def get_size(self,pos,  text, size, color=pg.Color('white')):
         font = pg.font.SysFont("Arial", size)
         
-        words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.
+        words = [word for word in text.splitlines()]  # 2D array where each row is a list of words.
         space = font.size(' ')[0]  # The width of a space.
         self.words, self.space = words, space
         
