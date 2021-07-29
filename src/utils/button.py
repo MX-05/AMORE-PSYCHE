@@ -32,7 +32,8 @@ class button():
     def make(self, image = ""):
         
         if image == "" or image.lower() =="rect": # RECTANsGLE
-            x, y, w, h = self.text_render.get_rect()
+            x, y, self.w, self.h = self.text_render.get_rect()
+            w, h = self.w, self.h
             x = self.x
             y = self.y
             

@@ -22,7 +22,7 @@ class menu():
             "status": const.mixer(True),
             "button": util.button((20, 80), "  Audio  "),
         }
-        self.audio["status coords"] = (
+        self.audio["status coords"] = ( 
                 20 + self.audio["button"].image.width + 20,
                 80
             )
@@ -36,7 +36,10 @@ class menu():
         
         # ----------- CREDITS BTN --------
         
-        self.credits = util.button((20, 282), "  Credits  ")
+        self.credits = {
+            "button": util.button((5, size[1] - 30), "  Credits  "),
+            "clicked": False
+        }
         
         # ----------- SKIN BTN --------
         
@@ -47,7 +50,7 @@ class menu():
     def main_menu(self):
         while True:
             
-            # ---------- DRAW BTN ------------
+            # ---------- DRAW BTN ------    ------
             
             for i in self.__dict__.items():
                 try:
@@ -65,11 +68,15 @@ class menu():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = pygame.mouse.get_pos()
                     
+                    # ----------- PLAY ------------
+                    
                     if self.play["button"].on_click(x, y):
                         self.play["playing"] = True
                         # TODO: mettere la funzione play per avviare i dialoghi 
                         print("\t [v] PUlsanre Play cliccato")
                         return
+                    
+                    # ----------- PLAY ------------
                     
                     if self.audio["button"].on_click(x, y):
                         
@@ -78,8 +85,18 @@ class menu():
                         else:
                             self.status = util.button(self.audio["status coords"], " off ")
                     
-                    if self.credits.on_click(x, y):
-                        # TODO: aggiungere le opzioni della classe credits 
+                    if self.credits["button"].on_click(x, y):
+                        if self.credits["clicked"] == True:
+                            
+                            self.credits["button"].y = size[1] - 30
+                            self.credits["clicked"] = False
+                            
+                            print(self.credits["button"].y)
+                        
+                        else:
+                            self.credits["button"].y = size[1] - 200
+                            self.credits["clicked"] = True
+                            
                         print("\t [v] pulsante crediti cliccato")
                     
                     if self.skin.on_click(x, y):
