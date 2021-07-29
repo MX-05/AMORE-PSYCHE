@@ -11,6 +11,7 @@ class Button(pygame.sprite.Sprite):
         if path != "":
             self.image = pygame.image.load(path)
             self.rect = self.image.get_rect()
+            self.rect.topleft = pos
     
     # BUTTON WITH TEXT
         
@@ -23,14 +24,21 @@ class Button(pygame.sprite.Sprite):
  
     def change_text(self, text, bg="white", txt_color = pygame.Color("black"), radius = 0):
         """Change the text whe you click"""
+        
+        # TEXT SSETUP
         self.content = text
         self.text = self.font.render(self.content, 1, txt_color)
+        
+        # GET SURFACE
         self.size = self.text.get_size()
         self.image = pygame.Surface(self.size)
-        self.image.fill("white")
+        self.image.fill(("white"))
+        
+        # GET RECTANGLE
         self.rect = self.image.get_rect()
         pygame.draw.rect(self.image, bg, self.rect, border_radius=radius)
         self.rect.topleft = self.pos
+        
         self.image.blit(self.text, (0, 0))
  
     # BUTTON REACTIONS
