@@ -3,13 +3,17 @@ import pygame
 class Button(pygame.sprite.Sprite):
     """Create a button, then blit the surface in the while loop"""
  
-    def __init__(self, pos, path = ""):
+    def __init__(self, pos, path = "", size = [60, 60]):
         super().__init__()
         self.pos = pos
         self.x, self.y = pos
         
         if path != "":
             self.image = pygame.image.load(path)
+            self.rect = self.image.get_rect()
+            self.rect.topleft = pos
+        else:
+            self.image = pygame.Surface(size)
             self.rect = self.image.get_rect()
             self.rect.topleft = pos
     
