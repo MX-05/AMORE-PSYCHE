@@ -32,28 +32,15 @@ audio = Button((295, 395)).B_text(
     " Audio ON ", ["Arial", 25],
     bg = (255, 174, 0), color="white", radius = 15 
 )
-skin = {
-    "button": Button((0, 0)).B_text(
-        " SKIN ", ["Arial", 25], 
-        bg = (255, 174, 0), color="white", radius=15
-    ),
-    "asset": Button((865, 100), path = "./assets/pg_pattuglie/pg_tigre.jpeg")
-}
 
-skin["asset"].image = pg.transform.scale(skin["asset"].image, (300, 400))
-asset_centery = skin["asset"].rect.centery
 
 # SET BUTTONS COORDS
 play.rect.center = [surface.get_rect().centerx, surface.get_rect().centery]
 audio.rect.centerx = surface.get_rect().centerx
-skin["button"].rect.centerx = 1000
-skin["button"].rect.top = 510
 
 menu = pg.sprite.Group()
 menu.add(audio)
 menu.add(play)
-menu.add(skin["asset"])
-menu.add(skin["button"])
 
 # CREDITS SETUP
 text_credits = """
@@ -75,9 +62,30 @@ credits = sprite_font(
 credits.rect.bottom = surface.get_rect().bottom - 10
 
 menu.add(credits)
+
+
+# SKIN SETUP
+skin = {
+    "button": Button((0, 0)).B_text(
+        " SKIN ", ["Arial", 25], 
+        bg = (255, 174, 0), color="white", radius=15
+    ),
+    "asset": Button((865, 100), path = "./assets/pg_pattuglie/pg_tigre.jpeg")
+}
+
+skin["asset"].image = pg.transform.scale(skin["asset"].image, (300, 400))
+
+# set button coords
+skin["button"].rect.centerx = 1000
+skin["button"].rect.top = 510
+
+# Animation variables
+asset_centery = skin["asset"].rect.centery
 vy = 1
 move = True
 
+menu.add(skin["asset"])
+menu.add(skin["button"])
 
 while True:
     
