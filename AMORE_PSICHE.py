@@ -2,7 +2,7 @@
 import pygame as pg
 import sys
 
-from ignore.button_2 import Button
+from utils import *
 
 # GENERAL SETUP
 pg.init()
