@@ -42,23 +42,20 @@ class sprite_font(pg.sprite.Sprite):
         font = pg.font.SysFont("Arial", size)
         
         words = [word for word in text.splitlines()]  # 2D array where each row is a list of words.
-        space = font.size(' ')[0]  # The width of a space.
-        self.words, self.space = words, space
+        self.words = words
         
-        max_width, max_height = self.max_size
         width, height = 0, 0
-        x, y = pos
         
         for line in words:
-            for word in line:
-                word_surface = font.render(word, 0, color)
-                word_width, word_height = word_surface.get_size()
+            word_surface = font.render(line, 0, color)
+            word_width, word_height = word_surface.get_size()
+            
+            if width < word_width:
+                width = word_width
                 
-                if x + word_width >= max_width:
-                    height += word_height  # Start on new row.
-                
-                width = width + word_width + space
             height += word_height
+        
+        print (width, height)
         
         return width, height
 
