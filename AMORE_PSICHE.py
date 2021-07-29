@@ -24,10 +24,11 @@ font = pg.font.SysFont("Arial", 20)
 # ------------------------------------- MENU ------------------------------------- #
 
 # BUTTON SETUP
-play = Button("Play", (0, 0), 50, bg=(225, 0, 0))
-audio = Button("Audio ON",(295, 280), 25, bg = "blue", txt_color=pg.Color("white"))
+play = Button((0,0)).B_text("Play", ["Arial", 50], bg= (255, 0, 0))
+audio = Button((295, 280)).B_text("Audio ON", ["Arial", 25], bg = "Blue", color="White")
 
 play.rect.center = surface.get_rect().center
+audio.rect.centerx = surface.get_rect().centerx
 
 menu = pg.sprite.Group()
 
@@ -47,6 +48,7 @@ menu.add(credits)
 menu.add(audio)
 menu.add(play)
 move = False
+
 
 while True:
     
@@ -69,10 +71,13 @@ while True:
             if audio.content.lower() == "audio on":
                 surface.fill(display["color"])
                 audio.change_text("Audio off ", bg="white")
+                audio.rect.centerx = surface.get_rect().centerx
             else:
                 audio.change_text("Audio ON", bg="blue", txt_color= pg.Color("white"))
+                audio.rect.centerx = surface.get_rect().centerx
     
     
     menu.draw(surface)
+    menu.update()
     clock.tick(60)
     pg.display.update()

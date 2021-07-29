@@ -5,6 +5,7 @@ class Button(pygame.sprite.Sprite):
  
     def __init__(self, pos, path = ""):
         super().__init__()
+        self.pos = pos
         self.x, self.y = pos
         
         if path != "":
@@ -13,12 +14,12 @@ class Button(pygame.sprite.Sprite):
     
     # BUTTON WITH TEXT
         
-    def text(self, text, font, bg= pygame.Color("white"), color = pygame.Color("black")):
+    def B_text(self, text, font, bg= pygame.Color("white"), color = pygame.Color("black")):
         self.content = text
         self.font = pygame.font.SysFont(font[0], font[1])
         
         self.change_text(self.content, bg= bg, txt_color=color)
-        return
+        return self
  
     def change_text(self, text, bg="white", txt_color = pygame.Color("black")):
         """Change the text whe you click"""
@@ -28,7 +29,8 @@ class Button(pygame.sprite.Sprite):
         self.image = pygame.Surface(self.size)
         self.image.fill(bg)
         self.image.blit(self.text, (0, 0))
-        self.rect = pygame.Rect(self.x, self.y, self.size[0], self.size[1])
+        self.rect = self.image.get_rect()
+        self.rect.topleft = self.pos
  
     # BUTTON REACTIONS
  
@@ -38,3 +40,4 @@ class Button(pygame.sprite.Sprite):
             if pygame.mouse.get_pressed()[0]:
                 if self.rect.collidepoint(x, y):
                     return True
+                
