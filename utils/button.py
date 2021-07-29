@@ -3,16 +3,22 @@ import pygame
 class Button(pygame.sprite.Sprite):
     """Create a button, then blit the surface in the while loop"""
  
-    def __init__(self, text,  pos, font, bg="white", feedback="", txt_color = pygame.Color("black")):
+    def __init__(self, pos, path = ""):
         super().__init__()
-        self.content = text
         self.x, self.y = pos
-        self.font = pygame.font.SysFont("Arial", font)
-        if feedback == "":
-            self.feedback = "text"
-        else:
-            self.feedback = feedback
-        self.change_text(text, bg, txt_color)
+        
+        if path != "":
+            self.image = pygame.image.load(path)
+            self.rect = self.image.get_rect()
+    
+    # BUTTON WITH TEXT
+        
+    def text(self, text, font, bg= pygame.Color("white"), color = pygame.Color("black")):
+        self.content = text
+        self.font = pygame.font.SysFont(font[0], font[1])
+        
+        self.change_text(self.content, bg= bg, txt_color=color)
+        return
  
     def change_text(self, text, bg="white", txt_color = pygame.Color("black")):
         """Change the text whe you click"""
@@ -24,9 +30,7 @@ class Button(pygame.sprite.Sprite):
         self.image.blit(self.text, (0, 0))
         self.rect = pygame.Rect(self.x, self.y, self.size[0], self.size[1])
  
-    def show(self):
-        # screen.blit(self.image, (self.x, self.y))
-        self.rect.center = [self.x, self.y]
+    # BUTTON REACTIONS
  
     def click(self, event):
         x, y = pygame.mouse.get_pos()
