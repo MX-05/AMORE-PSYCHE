@@ -8,6 +8,7 @@ class sprite_font(pg.sprite.Sprite):
         
         self.width, self.height = self.get_size(pos, text, size)
         self.image = pg.Surface((self.width, self.height))
+        self.bg = bg
         self.image.fill(bg)
         
         self.rect = self.image.get_rect()
