@@ -31,11 +31,11 @@ surface.blit(display["background"], (0,0))
 
 # BUTTON SETUP
 play = Button((0,0)).B_text(
-    " Play ", [font, 75], 
+    " Play ", [font, 65], 
     bg= (124, 99, 156), color="White", radius=20
 )
-audio = Button((295, 395)).B_text(
-    " Audio ON ", [font, 35],
+audio = Button((295, 420)).B_text(
+    " Audio ON ", [font, 25],
     bg = (255, 174, 0), color="white", radius = 15 
 )
 
