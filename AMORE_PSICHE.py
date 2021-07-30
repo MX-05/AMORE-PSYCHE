@@ -13,11 +13,17 @@ display = {
     'width': 1280,
     'height': 720,
     'caption': "AMORE ~ PSICHE",
-    "color": "white"
+    "color": "white",
+    "background": pg.image.load("./assets/bg_menu.jpg")
 }
+# set surfice
 pg.display.set_caption(display['caption'])
 surface = pg.display.set_mode((display['width'], display['height']), pg.SCALED + pg.RESIZABLE)
+
+# background
 surface.fill(display["color"])
+display["background"] =  pg.transform.scale(display["background"], (1280, 720))
+surface.blit(display["background"], (0,0))
 
 font = pg.font.SysFont("Arial", 20)
 
@@ -70,20 +76,62 @@ skin = {
         " SKIN ", ["Arial", 25], 
         bg = (255, 174, 0), color="white", radius=15
     ),
-    "asset": Button((865, 100), path = "./assets/pg_pattuglie/pg_tigre.jpeg"),
+    "image": Button((865, 100), path = "./assets/pg_pattuglie/pg_tigre.png"),
     "menu": Button((0, 0)) # TODO: set pos and size 
 }
 
-skin["asset"].image = pg.transform.scale(skin["asset"].image, (300, 400))
+skin["image"].image = pg.transform.scale(skin["image"].image, (300, 400))
 
 # set button coords
 skin["button"].rect.centerx = 1000
 skin["button"].rect.top = 510
 
 # Animation variables
-asset_centery = skin["asset"].rect.centery
-vy = 1
-move = True
+class skin_animation(Button):
+    def __init__(self, pos, image = "", path = "", vel = 1):
+        super().__init__(pos)
+                
+        # sprite variables
+        if path != "":
+            self.image = pg.image.load(path)
+            self.rect = self.image.get_rect()
+            self.rect.topleft = pos
+        if image != "":
+            self.image = image
+            self.rect = self.image.get_rect()
+            self.rect.topleft = pos
+            
+        if path == "" and image == "":
+            print("Error: make sure to set a path or an image")
+        
+        # animation variables
+        self.vel = vel
+        self.move = True
+        self.center = self.rect.centery
+        
+        return
+    
+    def update(self):
+        
+        # SET ANIMATION VARIABLES    
+        Ypoint = self.rect.centery
+        distance = Ypoint - self.center -25 
+        pg.time.delay(25)
+        
+        # GO DOWN
+        if Ypoint >= self.center -26 and self.move == True:
+            self.rect.centery += self.vel
+            if Ypoint == self.center +25:
+                self.move = False
+        
+        # GO UP
+        if Ypoint <= self.center +25 and self.move == False:
+            self.rect.centery -= self.vel
+            if Ypoint == self.center-25:
+                self.move = True
+        return
+        
+skin["asset"] = skin_animation(skin["image"].pos, skin["image"].image)
 
 # SKIN MENU
 # TODO: draw rectangle
@@ -93,7 +141,7 @@ move = True
 
 menu.add(skin["asset"])
 menu.add(skin["button"])
-menu.add(skin["menu"])
+# menu.add(skin["menu"])
 
 while True:
     
@@ -123,25 +171,10 @@ while True:
                 surface.fill(display["color"])
                 audio.change_text(" Audio ON ", bg=(255, 174, 0), txt_color= pg.Color("white"), radius=15)
                 audio.rect.centerx = surface.get_rect().centerx
-        
-    # SET ANIMATION VARIABLES    
-    Ypoint = skin["asset"].rect.centery
-    distance = Ypoint - asset_centery -25 
-    pg.time.delay(25)
+           
     
-    # GO DOWN
-    if Ypoint >= asset_centery -26 and move == True:
-        skin["asset"].rect.centery += vy
-        if Ypoint == asset_centery +25:
-            move = False
-    
-    # GO UP
-    if Ypoint <= asset_centery +25 and move == False:
-        skin["asset"].rect.centery -= vy
-        if Ypoint == asset_centery-25:
-            move = True
-    
-    
+    surface.blit(display["background"], (0,0))
     menu.draw(surface)
+    menu.update()
     clock.tick(60)
     pg.display.update()

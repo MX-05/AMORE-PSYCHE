@@ -9,6 +9,7 @@ class Button(pygame.sprite.Sprite):
         self.x, self.y = pos
         
         if path != "":
+            self.path = path
             self.image = pygame.image.load(path)
             self.rect = self.image.get_rect()
             self.rect.topleft = pos
@@ -36,7 +37,8 @@ class Button(pygame.sprite.Sprite):
         # GET SURFACE
         self.size = self.text.get_size()
         self.image = pygame.Surface(self.size)
-        self.image.fill("white")
+        self.image = self.image.convert_alpha() # or .convert()
+        self.image.set_colorkey((0, 0, 0)) 
         # self.image.set_alpha()
         
         # GET RECTANGLE

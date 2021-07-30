@@ -12,7 +12,8 @@ class sprite_font(pg.sprite.Sprite):
         self.width, self.height = self.get_size(pos, text, size)
         self.image = pg.Surface((self.width, self.height))
         self.color = bg
-        self.image.fill("white")
+        self.image = self.image.convert_alpha()
+        self.image.set_colorkey((0, 0, 0))
         
         # SET RECTANGLE
         self.rect = self.image.get_rect()
