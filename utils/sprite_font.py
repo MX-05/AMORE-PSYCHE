@@ -60,9 +60,7 @@ class sprite_font(pg.sprite.Sprite):
                 width = word_width
                 
             height += word_height
-        
-        print (width, height)
-        
+                
         return width, height
     
     

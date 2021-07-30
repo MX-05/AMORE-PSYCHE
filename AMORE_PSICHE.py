@@ -142,12 +142,16 @@ skin["asset"] = skin_animation(skin["image"].pos, skin["image"].image)
 # SKIN MENU
 
 # draw rect skin menu
-pg.draw.rect(skin["menu"].image, ("white"), skin["menu"].rect, border_radius= 30)
+pg.draw.rect(skin["menu"].image, (128, 95, 67), skin["menu"].rect, border_radius= 30)
+pg.draw.rect(skin["menu"].image, (205, 153, 108), (5, 5, skin["menu"].rect.width -10, skin["menu"].rect.height -10), border_radius= 30)
+
+# hide surface background
 skin["menu"].image = skin["menu"].image.convert()
 skin["menu"].image.set_colorkey((0, 0, 0))
 
-skin["menu"].rect.center = surface.get_rect().center  # POS
-skin["menu"].rect.top = surface.get_rect().bottom# POS
+# pos
+skin["menu"].rect.center = surface.get_rect().center  
+skin["menu"].rect.top = surface.get_rect().bottom     
 
 # animation variable
 def restart_animation():
@@ -159,7 +163,8 @@ def restart_animation():
     vel = 0
     a = 0.5 
 restart_animation()
-# TODO: add select skins buttons
+
+# TODO: add select skins buttons qnd previews (347, 80)
 # TODO: add exit button 
 
 menu.add(skin["asset"])
@@ -181,6 +186,7 @@ while True:
         if event.type == pg.MOUSEBUTTONDOWN:
             print(mouse.get_pos())
         
+        # BUTTONS
         if play.click(event) and not click:
             print("FUNGEEEEEEE")
         
@@ -198,6 +204,7 @@ while True:
             open_SkinMenu = True
             menu.add(skin["menu"])
         
+        # EXIT SKIN MENU
         if event.type == pg.MOUSEBUTTONDOWN and not skin["menu"].rect.collidepoint(mx, my) and click:
             exit_SkinMenu = True
         
@@ -214,7 +221,8 @@ while True:
             vel += a
             skin["menu"].rect.y -= vel
             
-            if pg.MOUSEBUTTONDOWN in pg.event.get(eventtype=pg.MOUSEBUTTONDOWN): print("click")
+            # FIXME: controllare se l'utente clicca durante l'animazione
+            
         else:
             restart_animation()
             click = True
