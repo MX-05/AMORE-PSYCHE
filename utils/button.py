@@ -37,7 +37,7 @@ class Button(pygame.sprite.Sprite):
         self.content = text
         self.text = self.font.render(self.content, 1, txt_color)
         
-        # GET SURFACE
+        # GET SURFACE   
         self.size = self.text.get_size()
         self.image = pygame.Surface(self.size)
         self.image = self.image.convert_alpha() # or .convert()
