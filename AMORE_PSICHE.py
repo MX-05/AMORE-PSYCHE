@@ -8,6 +8,8 @@ from utils import *
 pg.init()
 clock = pg.time.Clock()
 
+font = "./font/diogenes/DIOGENES.ttf"
+
 # SCREEN SETUP
 display = {
     'width': 1280,
@@ -25,17 +27,15 @@ surface.fill(display["color"])
 display["background"] =  pg.transform.scale(display["background"], (1280, 720))
 surface.blit(display["background"], (0,0))
 
-font = pg.font.SysFont("Arial", 20)
-
 # ------------------------------------- MENU ------------------------------------- #
 
 # BUTTON SETUP
 play = Button((0,0)).B_text(
-    " Play ", ["Arial", 50], 
+    " Play ", [font, 75], 
     bg= (124, 99, 156), color="White", radius=20
 )
 audio = Button((295, 395)).B_text(
-    " Audio ON ", ["Arial", 25],
+    " Audio ON ", [font, 35],
     bg = (255, 174, 0), color="white", radius = 15 
 )
 
@@ -60,7 +60,8 @@ text_credits = """
 
 credits = sprite_font(
     surface, 
-    text_credits, (10, 0), 15, 
+    text_credits, (10, 0), 
+    15, font = font, 
     bg=(62, 62, 62), 
     txt_color="White"
 )
@@ -73,7 +74,7 @@ menu.add(credits)
 # SKIN SETUP
 skin = {
     "button": Button((0, 0)).B_text(
-        " SKIN ", ["Arial", 25], 
+        " SKIN ", [font, 35], 
         bg = (255, 174, 0), color="white", radius=15
     ),
     "image": Button((865, 100), path = "./assets/pg_pattuglie/pg_tigre.png"),
@@ -133,7 +134,7 @@ class skin_animation(Button):
         
 skin["asset"] = skin_animation(skin["image"].pos, skin["image"].image)
 
-# SKIN MENU
+# SKIN MEN  U
 # TODO: draw rectangle
 # TODO: blit skins 
 # TODO: add select skins buttons
@@ -141,7 +142,7 @@ skin["asset"] = skin_animation(skin["image"].pos, skin["image"].image)
 
 menu.add(skin["asset"])
 menu.add(skin["button"])
-# menu.add(skin["menu"])
+menu.add(skin["menu"])
 
 while True:
     
@@ -164,11 +165,9 @@ while True:
         
         if audio.click(event):
             if audio.content.lower().strip() == "audio on":
-                surface.fill(display["color"])
                 audio.change_text(" Audio OFF ", bg=(255, 174, 0), txt_color="white", radius=15)
                 audio.rect.centerx = surface.get_rect().centerx
             else:
-                surface.fill(display["color"])
                 audio.change_text(" Audio ON ", bg=(255, 174, 0), txt_color= pg.Color("white"), radius=15)
                 audio.rect.centerx = surface.get_rect().centerx
            
