@@ -22,7 +22,10 @@ class Button(pygame.sprite.Sprite):
         
     def B_text(self, text, font, bg= pygame.Color("white"), color = pygame.Color("black"), radius = 0):
         self.content = text
-        self.font = pygame.font.SysFont(font[0], font[1])
+        if font[0] in pygame.font.get_fonts():
+            self.font = pygame.font.SysFont(font[0], font[1])
+        else:
+            self.font = pygame.font.Font(font[0], font[1])
         
         self.change_text(self.content, bg= bg, txt_color=color, radius=radius)
         return self

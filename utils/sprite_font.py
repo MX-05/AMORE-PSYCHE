@@ -2,14 +2,20 @@ import pygame as pg
 import pygame.gfxdraw
 
 class sprite_font(pg.sprite.Sprite):
-    def __init__(self, screen, text, pos, size, bg = pg.Color("white"), txt_color = pg.Color("black")):
+    def __init__(self, screen, text, pos, size, font = "Arial", bg = pg.Color("white"), txt_color = pg.Color("black")):
         super().__init__()
         
         self.max_size = screen.get_size()
         self.screen = screen
         
+        # SET FONT
+        if font in pg.font.get_fonts():
+            self.font = pg.font.SysFont(font, size)
+        else:
+            self.font = pg.font.Font(font, size)
+        
         # SET SPRITE SIZE
-        self.width, self.height = self.get_size(pos, text, size)
+        self.width, self.height = self.get_size(pos, text, size, self.font)
         self.image = pg.Surface((self.width, self.height))
         self.color = bg
         self.image = self.image.convert_alpha()
@@ -20,11 +26,10 @@ class sprite_font(pg.sprite.Sprite):
         pygame.draw.rect(self.image, bg, self.rect, border_radius=10)
         self.rect.topleft = pos
         
-        self.blit_text(self.image, text, (0, 0), size, color = txt_color)        
+        self.blit_text(self.image, text, (0, 0), self.font, color = txt_color)        
         return
         
-    def blit_text(self, surface, text, pos, size, color=pg.Color('black')):
-        font = pg.font.SysFont("Arial", size)
+    def blit_text(self, surface, text, pos, font, color=pg.Color('black')):
                 
         words = self.words
                 
@@ -40,8 +45,7 @@ class sprite_font(pg.sprite.Sprite):
             y += word_height  # Start on new row.
         return
     
-    def get_size(self,pos,  text, size, color=pg.Color('white')):
-        font = pg.font.SysFont("Arial", size)
+    def get_size(self,pos,  text, size, font, color=pg.Color('white')):
         
         words = [word for word in text.splitlines()]  # 2D array where each row is a list of words.
         self.words = words
