@@ -38,13 +38,19 @@ audio = Button((295, 420)).B_text(
     " Audio ON ", [font, 25],
     bg = (255, 174, 0), color="white", radius = 15 
 )
+column = pg.sprite.Sprite()
+column.image = pg.image.load("./assets/Colonna.png")
+column.rect = column.image.get_rect()
 
+column.image = pg.transform.scale(column.image, [200, 210])
+column.rect.topleft = (900,510) # width = 200, height = 210
 
 # SET BUTTONS COORDS
 play.rect.center = [surface.get_rect().centerx, surface.get_rect().centery]
 audio.rect.centerx = surface.get_rect().centerx
 
 menu = pg.sprite.Group()
+menu.add(column)
 menu.add(audio)
 menu.add(play)
 
@@ -75,9 +81,9 @@ menu.add(credits)
 
 # SKIN SETUP
 skin = {
-    "button": Button((0, 0)).B_text(
+    "button": Button((0, 590), colorkey=("white")).B_text(
         " SKIN ", [font, 25], 
-        bg = (255, 174, 0), color="white", radius=15
+        bg = (227, 219, 182), color=(0,0,0), radius= 15
     ),
     "image": Button((865, 100), path = "./assets/pg_pattuglie/pg_tigre.png"),
     "menu": Button(
@@ -90,7 +96,6 @@ skin["image"].image = pg.transform.scale(skin["image"].image, (300, 400))
 
 # set button coords
 skin["button"].rect.centerx = 1000
-skin["button"].rect.top = 510
 
 # Animation variables
 class skin_animation(Button):
@@ -121,19 +126,19 @@ class skin_animation(Button):
         
         # SET ANIMATION VARIABLES    
         Ypoint = self.rect.centery
-        distance = Ypoint - self.center -25 
+        distance = Ypoint - self.center -20 
         #pg.time.delay(25)
         
         # GO DOWN
-        if Ypoint >= self.center -26 and self.move == True:
+        if Ypoint >= self.center -31 and self.move == True:
             self.rect.centery += self.vel
-            if Ypoint == self.center +25:
+            if Ypoint == self.center +20:
                 self.move = False
         
         # GO UP
-        if Ypoint <= self.center +25 and self.move == False:
+        if Ypoint <= self.center +20 and self.move == False:
             self.rect.centery -= self.vel
-            if Ypoint == self.center-25:
+            if Ypoint == self.center-20:
                 self.move = True
         return
         
