@@ -146,9 +146,19 @@ skin["asset"] = skin_animation(skin["image"].pos, skin["image"].image)
 
 # SKIN MENU
 
-# draw rect skin menu
+# draw rect menu
 pg.draw.rect(skin["menu"].image, (128, 95, 67), skin["menu"].rect, border_radius= 30)
 pg.draw.rect(skin["menu"].image, (205, 153, 108), (5, 5, skin["menu"].rect.width -10, skin["menu"].rect.height -10), border_radius= 30)
+pg.draw.rect(skin["menu"].image, (0,0,0), (skin["menu"].rect.right -120, 120, 130, 370), border_bottom_left_radius=30, border_top_left_radius=30)
+text = pg.font.Font(font, 35)
+text.set_bold(True)
+skin["menu"].image.blit(
+    source=text.render("Coming Soon", 1, (128, 95, 67)),
+    dest=[
+        surface.get_rect().centerx - skin["menu"].rect.centerx - (pg.font.Font(font, 15).size("Coming Soon")[0]/2),
+        surface.get_rect().centerx - skin["menu"].rect.centery - (pg.font.Font(font, 15).size("Coming Soon")[1]/2)
+    ]
+)
 
 # hide surface background
 skin["menu"].image = skin["menu"].image.convert()
@@ -175,65 +185,66 @@ restart_animation()
 menu.add(skin["asset"])
 menu.add(skin["button"])
 
-while True:
-    
-    mouse = pg.mouse
-    mx, my = mouse.get_pos()
-    
-    for event in pg.event.get():
+def MAIN_MANU():
+    while True:
         
-        if event.type == pg.QUIT:
-            pg.quit()
-            sys.exit()
+        mouse = pg.mouse
+        mx, my = mouse.get_pos()
         
-        # DEBUG
-        # TODO: levarlo alla fine   
-        if event.type == pg.MOUSEBUTTONDOWN:
-            print(mouse.get_pos())
+        for event in pg.event.get():
+            
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit()
+            
+            # DEBUG
+            # TODO: levarlo alla fine   
+            if event.type == pg.MOUSEBUTTONDOWN:
+                print(mouse.get_pos())
+            
+            # BUTTONS
+            if play.click(event) and not click:
+                print("FUNGEEEEEEE")
+            
+            if audio.click(event) and not click:
+                if audio.content.lower().strip() == "audio on":
+                    audio.change_text(" Audio OFF ", bg=(255, 174, 0), txt_color="white", radius=15)
+                    audio.image.set_alpha(157)
+                    audio.image = audio.image.convert_alpha()
+                    audio.rect.centerx = surface.get_rect().centerx
+                else:
+                    audio.change_text(" Audio ON ", bg=(255, 174, 0), txt_color= pg.Color("white"), radius=15)
+                    audio.rect.centerx = surface.get_rect().centerx
+            
+            if skin["button"].click(event) and not click:
+                open_SkinMenu = True
+                menu.add(skin["menu"])
+            
+            # EXIT SKIN MENU
+            if event.type == pg.MOUSEBUTTONDOWN and not skin["menu"].rect.collidepoint(mx, my) and click:
+                exit_SkinMenu = True
+            
+        if exit_SkinMenu:
+            if skin["menu"].rect.y >= surface.get_rect().bottom:
+                menu.remove(skin["menu"])
+                restart_animation()
+            else:                
+                vel += a
+                skin["menu"].rect.y += vel 
         
-        # BUTTONS
-        if play.click(event) and not click:
-            print("FUNGEEEEEEE")
-        
-        if audio.click(event) and not click:
-            if audio.content.lower().strip() == "audio on":
-                audio.change_text(" Audio OFF ", bg=(255, 174, 0), txt_color="white", radius=15)
-                audio.image.set_alpha(157)
-                audio.image = audio.image.convert_alpha()
-                audio.rect.centerx = surface.get_rect().centerx
+        if open_SkinMenu:
+            if skin["menu"].rect.center >= surface.get_rect().center:
+                vel += a
+                skin["menu"].rect.y -= vel
+                
+                # FIXME: controllare se l'utente clicca durante l'animazione
+                
             else:
-                audio.change_text(" Audio ON ", bg=(255, 174, 0), txt_color= pg.Color("white"), radius=15)
-                audio.rect.centerx = surface.get_rect().centerx
+                restart_animation()
+                click = True
         
-        if skin["button"].click(event) and not click:
-            open_SkinMenu = True
-            menu.add(skin["menu"])
-        
-        # EXIT SKIN MENU
-        if event.type == pg.MOUSEBUTTONDOWN and not skin["menu"].rect.collidepoint(mx, my) and click:
-            exit_SkinMenu = True
-        
-    if exit_SkinMenu:
-        if skin["menu"].rect.y >= surface.get_rect().bottom:
-            menu.remove(skin["menu"])
-            restart_animation()
-        else:                
-            vel += a
-            skin["menu"].rect.y += vel 
-    
-    if open_SkinMenu:
-        if skin["menu"].rect.center >= surface.get_rect().center:
-            vel += a
-            skin["menu"].rect.y -= vel
-            
-            # FIXME: controllare se l'utente clicca durante l'animazione
-            
-        else:
-            restart_animation()
-            click = True
-    
-    surface.blit(display["background"], (0,0))
-    menu.draw(surface)
-    menu.update()
-    clock.tick(60)
-    pg.display.update()
+        surface.blit(display["background"], (0,0))
+        menu.draw(surface)
+        menu.update()
+        clock.tick(60)
+        pg.display.update()
