@@ -3,7 +3,7 @@ import pygame
 class Button(pygame.sprite.Sprite):
     """Create a button, then blit the surface in the while loop"""
  
-    def __init__(self, pos, path = "", size = [60, 60]):
+    def __init__(self, pos, path = "", size = [60, 60], colorkey = (0, 0, 0)):
         super().__init__()
         self.pos = pos
         self.x, self.y = pos
@@ -17,6 +17,8 @@ class Button(pygame.sprite.Sprite):
             self.image = pygame.Surface(size)
             self.rect = self.image.get_rect()
             self.rect.topleft = pos
+        
+        self.colorkey = colorkey
     
     # BUTTON WITH TEXT
         
@@ -40,8 +42,12 @@ class Button(pygame.sprite.Sprite):
         # GET SURFACE   
         self.size = self.text.get_size()
         self.image = pygame.Surface(self.size)
-        self.image = self.image.convert_alpha() # or .convert()
-        self.image.set_colorkey((0, 0, 0)) 
+        
+        if self.colorkey != ():
+            self.image.fill(self.colorkey)
+            self.image = self.image.convert_alpha() # or .convert()
+            self.image.set_colorkey(self.colorkey) 
+            
         # self.image.set_alpha()
         
         # GET RECTANGLE
