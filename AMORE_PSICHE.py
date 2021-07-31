@@ -177,7 +177,6 @@ def restart_animation():
     click = False
     vel = 0
     a = 0.5 
-restart_animation()
 
 # TODO: add select skins buttons qnd previews (347, 80)
 # TODO: add exit button 
@@ -185,7 +184,7 @@ restart_animation()
 menu.add(skin["asset"])
 menu.add(skin["button"])
 
-def MAIN_MANU():
+def MAIN_MANU(exit_SkinMenu = False, open_SkinMenu = False, click = False, vel = 0, a = 0.5):
     while True:
         
         mouse = pg.mouse
@@ -227,7 +226,11 @@ def MAIN_MANU():
         if exit_SkinMenu:
             if skin["menu"].rect.y >= surface.get_rect().bottom:
                 menu.remove(skin["menu"])
-                restart_animation()
+                exit_SkinMenu = False
+                open_SkinMenu = False
+                click = False
+                vel = 0
+                a = 0.5 
             else:                
                 vel += a
                 skin["menu"].rect.y += vel 
@@ -240,7 +243,11 @@ def MAIN_MANU():
                 # FIXME: controllare se l'utente clicca durante l'animazione
                 
             else:
-                restart_animation()
+                exit_SkinMenu = False
+                open_SkinMenu = False
+                vel = 0
+                a = 0.5 
+                
                 click = True
         
         surface.blit(display["background"], (0,0))
@@ -248,3 +255,5 @@ def MAIN_MANU():
         menu.update()
         clock.tick(60)
         pg.display.update()
+
+MAIN_MANU()
