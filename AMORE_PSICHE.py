@@ -184,18 +184,6 @@ def restart_animation():
 menu.add(skin["asset"])
 menu.add(skin["button"])
 
-# ------------------------------------- PLAY ------------------------------------- #
-play_clicked = False
-
-def start():
-    while True:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                pg.quit()
-                sys.exit()
-                
-    return
-
 def MAIN_MANU(exit_SkinMenu = False, open_SkinMenu = False, click = False, vel = 0, a = 0.5):
     while True:
         
@@ -298,6 +286,29 @@ def MAIN_MANU(exit_SkinMenu = False, open_SkinMenu = False, click = False, vel =
         menu.update()
         clock.tick(60)
         pg.display.update()
+
+# ------------------------------------- PLAY ------------------------------------- #
+play_clicked = False
+
+def start():
+    actors = pg.sprite.Group()
+    
+    heros = Button((0, 0), path = "./assets/actors/heros.jpeg")
+    heros.rect.bottomleft = [display["width"] -10, display["height"] -10]
+    actors.add(heros)
+    
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit()
+        
+        surface.blit(display["background"], (0,0))
+        actors.draw(surface)
+        clock.tick(60)
+        pg.display.update()
+                
+    return
 
 if __name__ == "__main__":
     play_clicked = MAIN_MANU()
