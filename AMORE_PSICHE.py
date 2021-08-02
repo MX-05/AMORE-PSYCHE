@@ -293,8 +293,12 @@ play_clicked = False
 def start():
     actors = pg.sprite.Group()
     
-    heros = Button((0, 0), path = "./assets/actors/heros.jpeg")
-    heros.rect.bottomleft = [display["width"] -10, display["height"] -10]
+    heros_image = pg.image.load("./assets/actors/heros.jpeg")
+    heros_image = pg.transform.scale(heros_image, (300, 400))
+    heros_image = heros_image.convert()
+    heros_image.set_colorkey((255, 255, 255))
+    
+    heros = skin_animation((268, 116), image= heros_image)
     actors.add(heros)
     
     while True:
@@ -302,6 +306,11 @@ def start():
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
+            
+            if event.type == pg.MOUSEBUTTONDOWN:
+                print(pg.mouse.get_pos())
+        
+        heros.update()
         
         surface.blit(display["background"], (0,0))
         actors.draw(surface)
