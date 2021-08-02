@@ -184,6 +184,18 @@ def restart_animation():
 menu.add(skin["asset"])
 menu.add(skin["button"])
 
+# ------------------------------------- PLAY ------------------------------------- #
+play_clicked = False
+
+def start():
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit()
+                
+    return
+
 def MAIN_MANU(exit_SkinMenu = False, open_SkinMenu = False, click = False, vel = 0, a = 0.5):
     while True:
         
@@ -196,14 +208,45 @@ def MAIN_MANU(exit_SkinMenu = False, open_SkinMenu = False, click = False, vel =
                 pg.quit()
                 sys.exit()
             
-            # DEBUG
-            # TODO: levarlo alla fine   
-            if event.type == pg.MOUSEBUTTONDOWN:
-                print(mouse.get_pos())
-            
             # BUTTONS
             if play.click(event) and not click:
-                print("FUNGEEEEEEE")
+                finish = False
+                while True:
+                    vel += a
+                    for event in pg.event.get():
+                        if event.type == pg.QUIT:
+                            pg.quit()
+                            sys.exit()
+                    
+                    if audio.rect.bottom >=0:
+                        audio.rect.y -= vel
+                        play.rect.y -= vel
+                        finish = False
+                    else: 
+                        finish = True
+                    
+                    if credits.rect.right >= 0:
+                        credits.rect.x -= vel
+                        finish = False
+                    else: 
+                        finish = True
+                    
+                    if skin["asset"].rect.y <= display["height"]:
+                        skin["asset"].rect.y += vel
+                        skin["button"].rect.y += vel
+                        column.rect.y += vel
+                        finish = False
+                    else: 
+                        finish = True
+                    
+                    if finish:
+                        return True
+                    
+                    surface.blit(display["background"], (0,0))
+                    menu.draw(surface)
+                    clock.tick(60)
+                    pg.display.update()
+                return True
             
             if audio.click(event) and not click:
                 if audio.content.lower().strip() == "audio on":
@@ -256,4 +299,8 @@ def MAIN_MANU(exit_SkinMenu = False, open_SkinMenu = False, click = False, vel =
         clock.tick(60)
         pg.display.update()
 
-MAIN_MANU()
+if __name__ == "__main__":
+    play_clicked = MAIN_MANU()
+    
+    if play_clicked:
+        start()
